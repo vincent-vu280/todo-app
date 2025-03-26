@@ -3,7 +3,7 @@ import { ThemedText } from "../ThemedText";
 import { Button, View } from "react-native"
 import { useDispatch, useSelector } from 'react-redux';
 import { hideDeleteModal } from "@/state/modal/deleteModalSlice";
-import { deleteTodo } from "@/state/todo/todoSlice";
+import { deleteTodo, updateStorageAsync } from "@/state/todo/todoSlice";
 
 export function DeleteTodoModal({}) {
     
@@ -17,7 +17,6 @@ export function DeleteTodoModal({}) {
         <Modal 
             contentContainerStyle={{padding: '5%', margin: '10%',backgroundColor: 'black'}}
             visible={visible}
-
         >
             <ThemedText>Are you sure you want to delete "{name}"?</ThemedText>
             <View style={{
@@ -38,6 +37,7 @@ export function DeleteTodoModal({}) {
                     onPress={() => {
                         dispatch(hideDeleteModal());
                         dispatch(deleteTodo(id));
+                        dispatch(updateStorageAsync());
                     }}
                 />
             </View>

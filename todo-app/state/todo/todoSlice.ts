@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import uuid from 'react-native-uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { store } from '../store';
 
 const todoSlice = createSlice({
     name: 'todos',
@@ -21,9 +23,49 @@ const todoSlice = createSlice({
             if (todo) {
                 todo.complete = !todo.complete;
             }
+            
         },
     },
+    
+    extraReducers: (builder) => {
+        builder.addCase(
+            updateStorageAsync.fulfilled,
+            () => {
+                console.log("update storage success");
+            }
+        ).addCase(
+            initializeStateAsync.fulfilled,
+            (state, action) => {
+                if(action.payload){
+                    state = action.payload;
+                }
+            }
+        )
+    }
+        
 });
+
+
+export const updateStorageAsync = createAsyncThunk(
+    "todo/updateStorageAsync",
+    async () => {
+        const todos = store.getState().todos;
+        try {
+            await AsyncStorage.setItem("todo-list", JSON.stringify(todos));
+        }
+        catch(e) {
+            console.log(e)
+        }
+    }
+);
+
+export const initializeStateAsync = createAsyncThunk(
+    "todo/initializeStateAsync",
+    async () => {
+        return JSON.parse(await AsyncStorage.getItem('todo-list'));
+    }
+);
+
 
 export const { addTodo, deleteTodo, toggleTodo } = todoSlice.actions;
 export default todoSlice.reducer;

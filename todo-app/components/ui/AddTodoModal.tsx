@@ -3,7 +3,7 @@ import { Button, TextInput, Text, View } from "react-native"
 import { useDispatch, useSelector } from "react-redux";
 import { hideAddModal } from "@/state/modal/addModelSlice";
 import { useState } from "react";
-import { addTodo } from "@/state/todo/todoSlice";
+import { addTodo, updateStorageAsync } from "@/state/todo/todoSlice";
 
 export function AddTodoModal() {
     
@@ -47,7 +47,8 @@ export function AddTodoModal() {
                     title='Add'
                     disabled={text.trim().length === 0}
                     onPress={() => {
-                        dispatch(addTodo(text))
+                        dispatch(addTodo(text));
+                        dispatch(updateStorageAsync());
                         dispatch(hideAddModal());
                         
                         setText('');

@@ -1,12 +1,16 @@
 import { FlatList } from "react-native";
 import { TaskCard } from "./TaskCard";
 import { View } from "react-native";
+import { useSelector } from 'react-redux';
 
-export function TaskList({data}) {
+export function TaskList() {
+    
+    const todos = useSelector((state) => state.todos);
+
     return(
         <FlatList 
             style={{ width: "100%", paddingHorizontal: '5%', marginTop: "10%" }}
-            data={data}
+            data={todos}
             renderItem={({item}) => {
                     return(
                         <TaskCard 
