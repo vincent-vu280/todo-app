@@ -1,21 +1,24 @@
 import { Card, Checkbox } from 'react-native-paper';
 import { IconButton } from 'react-native-paper';
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { showDeleteModal } from '@/state/modal/deleteModalSlice';
+import { toggleTodo } from '@/state/todo/todoSlice';
 
-export function TaskCard({ name, complete }) {
-
-    const [checked, setChecked] = useState(complete);
+export function TaskCard({ name, complete, id }) {
+    
+    const dispatch = useDispatch();
 
     return(
         <Card style={{ marginBottom: 20 }}> 
             <Card.Title
                 title={name} 
+                titleNumberOfLines={5}
                 left={() => {
                     return(
                         <Checkbox 
-                            status={checked ? 'checked' : 'unchecked'}
+                            status={complete ? 'checked' : 'unchecked'}
                             onPress={() => {
-                                setChecked(!checked);
+                                dispatch(toggleTodo(id));
                             }}
                         />
                     );
@@ -25,7 +28,8 @@ export function TaskCard({ name, complete }) {
                         <IconButton 
                             icon='trash-can'
                             onPress={() => {
-                                console.log(`Delete Button pressed for ${name}`)
+                                dispatch(showDeleteModal({id: id, name: name}));
+                                console.log(`Delete Button pressed for ${name}`);
                             }}
                         />
                     );
