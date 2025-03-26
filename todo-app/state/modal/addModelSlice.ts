@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+interface AddModalState {
+    visible: boolean
+}
+
+const initialState: AddModalState = {
+    visible: false
+}
+
 const addModalSlice = createSlice({
     name: 'addModal',
-    initialState: {
-        visible: false
-    },
+    initialState,
     reducers: {
         showAddModal: (state) => {
             state.visible = true;

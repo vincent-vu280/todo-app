@@ -1,10 +1,15 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
+import { TodoCard } from '../ui/TodoCard';
 
-import { ThemedText } from '../ThemedText';
 
 it(`renders correctly`, () => {
-  const tree = renderer.create(<ThemedText>Snapshot test!</ThemedText>).toJSON();
+  const tree = renderer.create(<TodoCard 
+    name='test' 
+    id='0'
+    category='Personal'
+    complete={true} 
+  />).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

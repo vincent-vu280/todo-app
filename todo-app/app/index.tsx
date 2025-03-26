@@ -1,23 +1,24 @@
-import { StyleSheet } from 'react-native';
-import { ThemedView } from '@/components/ThemedView';
+import { StyleSheet, View } from 'react-native';
 import { AddTodoButton } from '@/components/ui/AddTodoButton';
-import { TaskList } from '@/components/ui/TaskList';
+import { TodoList } from '@/components/ui/TodoList';
 import { DeleteTodoModal } from '@/components/ui/DeleteTodoModal';
 import { AddTodoModal } from '@/components/ui/AddTodoModal';
 import { initializeStateAsync } from '@/state/todo/todoSlice';
 import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/state/store';
 
 export default function HomeScreen() {
-    const dispatch = useDispatch();
-    
-    dispatch(initializeStateAsync());
+
+  const dispatch: AppDispatch = useDispatch();
+  dispatch(initializeStateAsync());
+  
   return (
-      <ThemedView style={styles.appContainer}>
-        <TaskList/>
+      <View style={styles.appContainer}>
+        <TodoList/>
         <DeleteTodoModal/>
         <AddTodoModal/>
         <AddTodoButton/>
-      </ThemedView>
+      </View>
   );
 }
 
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%'
+    height: '100%',
+    backgroundColor: 'white',
   }
 });

@@ -1,46 +1,75 @@
-import { Modal } from "react-native-paper";
-import { ThemedText } from "../ThemedText";
-import { Button, View } from "react-native"
+import { Modal, Text, Button } from "react-native-paper";
+import { View, StyleSheet } from "react-native"
 import { useDispatch, useSelector } from 'react-redux';
 import { hideDeleteModal } from "@/state/modal/deleteModalSlice";
 import { deleteTodo, updateStorageAsync } from "@/state/todo/todoSlice";
+import { RootState, AppDispatch } from "@/state/store";
+
+export type DeleteInfo = {
+    'id': string,
+    'name': string
+}
 
 export function DeleteTodoModal({}) {
     
-    
-    const visible = useSelector((state) => state.deleteModal.visible);
-    const id = useSelector((state) => state.deleteModal.key);
-    const name = useSelector((state) => state.deleteModal.name);
-    const dispatch = useDispatch();
+    const visible = useSelector((state: RootState) => state.deleteModal.visible);
+    const id = useSelector((state: RootState) => state.deleteModal.key);
+    const name = useSelector((state: RootState) => state.deleteModal.name);
+    const dispatch: AppDispatch = useDispatch();
+
+    // Function executed when cancel button is pressed
+    const onCancelButtonPress = () => {
+        dispatch(hideDeleteModal());
+    }
+
+    // Function executed when delete button is pressed
+    const onDeleteButtonPress = () => {
+        dispatch(hideDeleteModal());
+        dispatch(deleteTodo(id));
+        dispatch(updateStorageAsync());
+    }
 
     return(
         <Modal 
-            contentContainerStyle={{padding: '5%', margin: '10%',backgroundColor: 'black'}}
+            contentContainerStyle={styles.modal}
             visible={visible}
         >
-            <ThemedText>Are you sure you want to delete "{name}"?</ThemedText>
-            <View style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignSelf: 'center',
-                    gap: '40%',
-                }}
+            <Text>
+                Are you sure you want to delete "{name}"?
+            </Text>
+            <View 
+                style={styles.buttonWrapper}
             >
                 <Button
-                    title='Cancel'
-                    onPress={() => {
-                        dispatch(hideDeleteModal());
-                    }}
-                />
+                    mode="outlined"
+                    onPress={onCancelButtonPress}
+                >
+                    Cancel
+                </Button>
                 <Button
-                    title='Delete'
-                    onPress={() => {
-                        dispatch(hideDeleteModal());
-                        dispatch(deleteTodo(id));
-                        dispatch(updateStorageAsync());
-                    }}
-                />
+                    buttonColor="rgb(199, 0, 0)"
+                    mode="contained"
+                    onPress={onDeleteButtonPress}
+                >
+                    Delete
+                </Button>
             </View>
         </Modal>
     );
 }
+
+const styles = StyleSheet.create({
+    modal: {
+        padding: '5%', 
+        margin: '10%', 
+        backgroundColor: 'white', 
+        borderRadius: 10, 
+    },
+    buttonWrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignSelf: 'center',
+        gap: '25%',
+        marginTop: '10%',
+    },
+});
