@@ -1,4 +1,4 @@
-import { showAddModal } from "@/state/modal/addModelSlice";
+import { showAddModal } from "@/utils/state/modal/addModelSlice";
 import { FAB } from "react-native-paper";
 import { useDispatch } from "react-redux";
 import { StyleSheet } from "react-native";

@@ -1,11 +1,11 @@
 import { Modal, TextInput, Button } from "react-native-paper";
 import { Text, View, StyleSheet } from "react-native"
 import { useDispatch, useSelector } from "react-redux";
-import { hideAddModal } from "@/state/modal/addModelSlice";
+import { hideAddModal } from "@/utils/state/modal/addModelSlice";
 import { useState } from "react";
-import { addTodo, updateStorageAsync } from "@/state/todo/todoSlice";
+import { addTodo, updateStorageAsync } from "@/utils/state/todo/todoSlice";
 import { Dropdown } from 'react-native-element-dropdown';
-import { RootState, AppDispatch } from "@/state/store";
+import { RootState, AppDispatch } from "@/utils/state/store";
 
 export type FormSubmission = {
     'name': string,

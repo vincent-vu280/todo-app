@@ -1,9 +1,9 @@
 import { Modal, Text, Button } from "react-native-paper";
 import { View, StyleSheet } from "react-native"
 import { useDispatch, useSelector } from 'react-redux';
-import { hideDeleteModal } from "@/state/modal/deleteModalSlice";
-import { deleteTodo, updateStorageAsync } from "@/state/todo/todoSlice";
-import { RootState, AppDispatch } from "@/state/store";
+import { hideDeleteModal } from "@/utils/state/modal/deleteModalSlice";
+import { deleteTodo, updateStorageAsync } from "@/utils/state/todo/todoSlice";
+import { RootState, AppDispatch } from "@/utils/state/store";
 
 export type DeleteInfo = {
     'id': string,

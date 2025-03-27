@@ -3,9 +3,9 @@ import { AddTodoButton } from '@/components/ui/AddTodoButton';
 import { TodoList } from '@/components/ui/TodoList';
 import { DeleteTodoModal } from '@/components/ui/DeleteTodoModal';
 import { AddTodoModal } from '@/components/ui/AddTodoModal';
-import { initializeStateAsync } from '@/state/todo/todoSlice';
+import { initializeStateAsync } from '@/utils/state/todo/todoSlice';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/state/store';
+import { AppDispatch } from '@/utils/state/store';
 
 export default function HomeScreen() {
   

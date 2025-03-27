@@ -1,6 +1,6 @@
 import { db } from '@/utils/db/firebase';
 import { collection, limit, getDocs, query, updateDoc } from 'firebase/firestore';
-import { TodoItem } from '@/state/todo/todoSlice';
+import { TodoItem } from '@/utils/state/todo/todoSlice';
 
 type DBEntry = {
     'dateUpdated': Date,

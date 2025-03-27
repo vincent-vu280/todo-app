@@ -1,12 +1,12 @@
 import { Card, Checkbox, IconButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
-import { showDeleteModal } from '@/state/modal/deleteModalSlice';
-import { deleteTodo, toggleTodo, updateStorageAsync, TodoItem } from '@/state/todo/todoSlice';
+import { showDeleteModal } from '@/utils/state/modal/deleteModalSlice';
+import { deleteTodo, toggleTodo, updateStorageAsync, TodoItem } from '@/utils/state/todo/todoSlice';
 import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 import Reanimated from 'react-native-reanimated';
 import { View, StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { AppDispatch } from '@/state/store';
+import { AppDispatch } from '@/utils/state/store';
 
 export function TodoCard({name, id, category, complete}: {name: string, id: string, category: string, complete: boolean}) {
     

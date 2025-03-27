@@ -1,8 +1,8 @@
 import { FlatList, Text, View, StyleSheet } from "react-native";
 import { TodoCard } from "./TodoCard";
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from "@/state/store";
-import { TodoItem, initializeStateAsync } from "@/state/todo/todoSlice";
+import { RootState, AppDispatch } from "@/utils/state/store";
+import { TodoItem, initializeStateAsync } from "@/utils/state/todo/todoSlice";
 
 export function TodoList() {
     
