@@ -34,7 +34,7 @@ export function DeleteTodoModal({}) {
             contentContainerStyle={styles.modal}
             visible={visible}
         >
-            <Text>
+            <Text style={styles.modalText}>
                 Are you sure you want to delete "{name}"?
             </Text>
             <View 
@@ -71,5 +71,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         gap: '25%',
         marginTop: '10%',
+    },
+    modalText: {
+        textAlign: 'center',
+        fontSize: 18,
     },
 });

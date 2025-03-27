@@ -62,9 +62,9 @@ export function TodoCard({name, id, category, complete}: {name: string, id: stri
         <GestureHandlerRootView>
             <ReanimatedSwipeable
                 friction={5}
-                rightThreshold={50}
+                rightThreshold={40}
                 renderRightActions={SwipeAction}
-                leftThreshold={50}
+                leftThreshold={40}
                 renderLeftActions={SwipeAction}
                 onSwipeableOpen={swipeHandler}
             >
@@ -73,7 +73,7 @@ export function TodoCard({name, id, category, complete}: {name: string, id: stri
                 > 
                     <Card.Title
                         title={name}
-                        titleStyle={{ textDecorationLine: complete ? 'line-through' : 'none' }} 
+                        titleStyle={{ textDecorationLine: complete ? 'line-through' : 'none', fontSize: 18 }} 
                         subtitle={category}
                         subtitleStyle={styles.subtitleText}
                         titleNumberOfLines={5}

@@ -86,7 +86,7 @@ export function AddTodoModal() {
             visible={visible}
             contentContainerStyle={styles.modal}
         >
-            <Text>
+            <Text style={styles.textLabel}>
                 To-do: 
             </Text>
             <TextInput
@@ -95,7 +95,7 @@ export function AddTodoModal() {
                 value={text}
                 onChangeText={onInputTextChangeHandler}
             />
-            <Text>
+            <Text style={styles.textLabel}>
                 Category: 
             </Text>
             <Dropdown
@@ -145,5 +145,8 @@ const styles = StyleSheet.create({
     },
     textInput: {
         marginBottom: '10%',
-    }
+    },
+    textLabel: {
+        fontSize: 18,
+    },
 });
