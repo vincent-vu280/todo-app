@@ -8,10 +8,10 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/state/store';
 
 export default function HomeScreen() {
-
+  
   const dispatch: AppDispatch = useDispatch();
   dispatch(initializeStateAsync());
-  
+
   return (
       <View style={styles.appContainer}>
         <TodoList/>

@@ -1,13 +1,13 @@
 import { FlatList, Text, View, StyleSheet } from "react-native";
 import { TodoCard } from "./TodoCard";
-import { useSelector } from 'react-redux';
-import { RootState } from "@/state/store";
-import { TodoItem } from "@/state/todo/todoSlice";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from "@/state/store";
+import { TodoItem, initializeStateAsync } from "@/state/todo/todoSlice";
 
 export function TodoList() {
     
     const todos = useSelector((state: RootState) => state.todos);
-
+    
     // Function to render todo cards for the todo list
     const renderTodoCard = ({item}: {item: TodoItem}) => {
         return(

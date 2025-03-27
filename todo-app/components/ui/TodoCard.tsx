@@ -72,8 +72,10 @@ export function TodoCard({name, id, category, complete}: {name: string, id: stri
                     style={styles.todoCard}
                 > 
                     <Card.Title
-                        title={name} 
+                        title={name}
+                        titleStyle={{ textDecorationLine: complete ? 'line-through' : 'none' }} 
                         subtitle={category}
+                        subtitleStyle={styles.subtitleText}
                         titleNumberOfLines={5}
                         left={renderLeftCardComponent}  
                         right={renderRightCardComponent}         
@@ -88,5 +90,8 @@ const styles = StyleSheet.create({
     todoCard: { 
         marginBottom: 20, 
         marginHorizontal: '10%' 
-    }
+    },
+    subtitleText: {
+        color: "rgb(119, 14, 238)"
+    },
 })

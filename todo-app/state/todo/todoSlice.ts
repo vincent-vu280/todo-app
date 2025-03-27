@@ -3,6 +3,8 @@ import uuid from 'react-native-uuid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { store } from '../store';
 import { FormSubmission } from '@/components/ui/AddTodoModal';
+import { getTodoList, updateDateUpdated, updateTodoList, getDateUpdated } from '@/utils/db/dbUtils';
+
 
 export type TodoItem = {
     'name': string,
@@ -48,7 +50,9 @@ const todoSlice = createSlice({
         ).addCase(
             initializeStateAsync.fulfilled,
             (state, action: PayloadAction<TodoItem[]>) => {
-                state = action.payload;
+                action.payload.forEach((todo) => {
+                    state.push(todo);
+                })
             }
         )
     }
@@ -62,6 +66,9 @@ export const updateStorageAsync = createAsyncThunk(
         const todos = store.getState().todos;
         try {
             await AsyncStorage.setItem("todo-list", JSON.stringify(todos));
+            await AsyncStorage.setItem("date-updated", new Date().toDateString());
+            await updateDateUpdated();
+            await updateTodoList(todos);
         }
         catch(e) {
             console.log(e)
@@ -72,12 +79,38 @@ export const updateStorageAsync = createAsyncThunk(
 export const initializeStateAsync = createAsyncThunk(
     "todo/initializeStateAsync",
     async () => {
-        const todos: string | null = await AsyncStorage.getItem('todo-list');
 
-        if(todos){
-            return JSON.parse(todos);
+        const storageDateUpdated: string = await AsyncStorage.getItem('date-updated') ?? '0';
+        
+        const localDate = new Date(storageDateUpdated);
+        
+        const fsDateUpdated: Date = await getDateUpdated() ?? new Date('0');
+        
+        // Synchronize local and cloud storage prioritizing the most recently updated
+
+        if(localDate < fsDateUpdated) {
+            const todos: TodoItem[] | null = await getTodoList();
+            if(todos){
+                await AsyncStorage.setItem("todo-list", JSON.stringify(todos));
+                await AsyncStorage.setItem("date-updated", new Date().toDateString());
+                return todos;
+            }
+            return [];
         }
-        return []
+        else{
+            const todos: string | null = await AsyncStorage.getItem('todo-list');
+            
+            if(todos){
+                await updateDateUpdated();
+                await updateTodoList(JSON.parse(todos));
+                return JSON.parse(todos);
+            }
+            return [];
+        }
+
+        
+
+        
     }
 );
 
